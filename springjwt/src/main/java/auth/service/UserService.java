@@ -1,10 +1,10 @@
-package service;
+package auth.service;
 
-import dto.UserDto;
-import entity.AuthorityEntity;
-import entity.UserEntity;
-import repository.UserRepository;
-import utils.SecurityUtil;
+import auth.dto.UserDto;
+import auth.entity.AuthorityEntity;
+import auth.entity.UserEntity;
+import auth.repository.UserRepository;
+import util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
-package repository;
+package auth.repository;
 
-import entity.UserEntity;
+
+import auth.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

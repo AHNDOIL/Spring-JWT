@@ -1,4 +1,4 @@
-package entity;
+package auth.entity;
 
 import lombok.*;
 import jakarta.persistence.*;

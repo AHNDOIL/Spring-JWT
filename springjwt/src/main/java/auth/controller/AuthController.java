@@ -1,9 +1,9 @@
-package controller;
+package auth.controller;
 
-import dto.LoginDto;
-import dto.TokenDto;
-import config.JwtFilter;
-import config.TokenProvider;
+import auth.dto.LoginDto;
+import auth.dto.TokenDto;
+import jwt.TokenProvider;
+import filter.JwtFilter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

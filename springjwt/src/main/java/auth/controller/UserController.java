@@ -1,8 +1,8 @@
-package controller;
+package auth.controller;
 
-import dto.UserDto;
-import entity.UserEntity;
-import service.UserService;
+import auth.dto.UserDto;
+import auth.entity.UserEntity;
+import auth.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserEntity> signup(
-            @Valid @RequestBody UserDto userDto
-    ) {
+    public ResponseEntity<UserEntity> signup(@Valid @RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.signup(userDto));
     }
 

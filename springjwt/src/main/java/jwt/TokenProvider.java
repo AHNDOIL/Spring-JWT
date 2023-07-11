@@ -1,6 +1,6 @@
-package config;
+package jwt;
 
-import entity.UserEntity;
+import auth.entity.UserEntity;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
