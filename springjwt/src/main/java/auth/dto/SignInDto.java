@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDto {
+public class SignInDto {
 
     @NotNull
     @Size(min = 3, max = 50)

@@ -2,10 +2,12 @@ package auth.repository;
 
 
 import auth.entity.UserEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<UserEntity, Long> {
-    Optional<UserEntity> findOneWithAuthoritiesByUsername(String username);
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    //CrudRepository를 상속받은 Jpa 특화 JpaRepository
+
+    UserEntity findByUsername(String username);
+    UserEntity findByNickname(String nickname);
 }

@@ -24,16 +24,16 @@ public class UserEntity {
     @Column(name = "user_id")
     // 자동 증가 되는
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
-    @Column(name = "username", length = 50, unique = true)
+    @Column(name = "username", length = 50, unique = true, nullable = false)
     private String username;
 
     @JsonIgnore //직렬화시 해당 필드 무시
-    @Column(name = "password", length = 100)
+    @Column(name = "password", length = 100,  nullable = false)
     private String password;
 
-    @Column(name = "nickname", length = 50)
+    @Column(name = "nickname", length = 50,  nullable = false)
     private String nickname;
 
     @JsonIgnore
@@ -48,14 +48,5 @@ public class UserEntity {
     private Set<AuthorityEntity> authorities;
 
 
-
-    public UserEntity(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities.stream()
-                .filter(authority -> authority instanceof AuthorityEntity)
-                .map(authority -> (AuthorityEntity) authority)
-                .collect(Collectors.toSet());
-    }
 
 }
