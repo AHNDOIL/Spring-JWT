@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 import security.JpaUserDetailsService;
 
 
-
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -103,27 +104,25 @@ public class TokenProvider{
     // 토큰의 유효성 검증을 수행
     public boolean validateToken(String token) {
         try {
-
-            if(!token.substring(0, "BEARER ".length()).equalsIgnoreCase("BEARER ")){
+            if (!token.startsWith("Bearer ")) {
                 return false;
-            } else {
-                token = token.split(" ")[1].trim();
             }
-            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey.getBytes()).build().parseClaimsJws(token);
+            token = token.substring("Bearer ".length()).trim();
+
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(secretKey.getBytes())
+                    .build()
+                    .parseClaimsJws(token);
+
             return !claims.getBody().getExpiration().before(new Date());
-
-        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-
-            logger.info("잘못된 JWT 서명입니다.");
+        } catch (SignatureException | MalformedJwtException e) {
+            logger.info("잘못된 JWT 서명입니다: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
-
-            logger.info("만료된 JWT 토큰입니다.");
+            logger.info("만료된 JWT 토큰입니다: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
-
-            logger.info("지원되지 않는 JWT 토큰입니다.");
+            logger.info("지원되지 않는 JWT 토큰입니다: {}", e.getMessage());
         } catch (IllegalArgumentException e) {
-
-            logger.info("JWT 토큰이 잘못되었습니다.");
+            logger.info("JWT 토큰이 잘못되었습니다: {}", e.getMessage());
         }
         return false;
     }

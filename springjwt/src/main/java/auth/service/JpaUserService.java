@@ -21,6 +21,7 @@ import java.util.Collections;
 public class JpaUserService implements UserService{
 
     private final UserRepository userRepository;
+    private final RefreshTokenService refreshTokenService;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
@@ -52,7 +53,7 @@ public class JpaUserService implements UserService{
                 .refreshToken(refreshToken)
                 .build();
 
-        //refreshToken Redis에 저장
+        refreshTokenService.saveRefreshToken(tokenDto, encodeUser.getUsername());
 
         return tokenDto;
 
