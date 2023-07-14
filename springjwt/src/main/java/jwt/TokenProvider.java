@@ -23,10 +23,9 @@ import java.util.Date;
 public class TokenProvider{
 
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
-    private static final String AUTHORITIES_KEY = "auth";
     private final String secretKey;
     private final long tokenExpirationTime; //토큰 생존 시간 millis
-    private final String issuer;
+    private final String issuer; //토큰 발급자
 
     private final JpaUserDetailsService userDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -63,23 +62,10 @@ public class TokenProvider{
 
     // 토큰으로 클레임을 만들고 이를 이용해 유저 객체를 만들어서 최종적으로 authentication 객체를 리턴
     public Authentication getAuthentication(String token) {
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-//        Claims claims = Jwts
-//                .parserBuilder()
-//                .setSigningKey(key)
-//                .build()
-//                .parseClaimsJws(token)
-//                .getBody();
-//
-//        Collection<? extends GrantedAuthority> authorities =
-//                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-//                        .map(SimpleGrantedAuthority::new)
-//                        .collect(Collectors.toList());
-//
-//        UserEntity principal = new UserEntity(claims.getSubject(), "", authorities);
-//
-//        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+
     }
 
     public String getUsername(String token){

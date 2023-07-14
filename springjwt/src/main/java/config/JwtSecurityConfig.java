@@ -9,7 +9,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import filter.JwtAuthenticationFilter;
 
 
-//UsernamePasswordAuthenticationFilter : login 요청을 감시하며, 인증 과정을 진행
 @RequiredArgsConstructor
 public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
     private final TokenProvider tokenProvider;
@@ -17,7 +16,7 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
     @Override
     public void configure(HttpSecurity http) {
 
-        // security 로직에 JwtFilter 등록
+        // security 로직에 JwtAuthenticationFilter 등록
         http.addFilterBefore(
                 new JwtAuthenticationFilter(tokenProvider),
                 UsernamePasswordAuthenticationFilter.class

@@ -1,7 +1,7 @@
 package auth.controller;
 
 
-import auth.service.UserService;
+import auth.service.JpaUserService;
 import jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 
@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final TokenProvider tokenProvider;
-    private UserService userService;
+    private JpaUserService userService;
 }

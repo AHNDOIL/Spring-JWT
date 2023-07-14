@@ -1,18 +1,19 @@
 package auth.service;
 
+import auth.dto.SignUpDto;
+import auth.dto.TokenDto;
+import auth.entity.UserEntity;
 
-import auth.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import java.util.Collection;
 
+public interface UserService { // 회원가입
 
-@Service
-@RequiredArgsConstructor
-public class UserService {
+    TokenDto create(SignUpDto signUpDto);
+    UserEntity read();
+    Collection<UserEntity> readAll();
+    Boolean update();
+    Boolean delete();
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
+    UserEntity convertSignUpDtoToUser(SignUpDto signUpDto);
 
 }

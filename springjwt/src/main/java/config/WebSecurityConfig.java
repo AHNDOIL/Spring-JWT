@@ -44,13 +44,14 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정하겠다.
-                .requestMatchers("/api/authenticate").permitAll() // 로그인 api
+                .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
+                .requestMatchers("/api/signin").permitAll() // 로그인 api
                 .requestMatchers("/api/signup").permitAll() // 회원가입 api
                 .anyRequest().authenticated() // 그 외 인증 없이 접근X
 
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider)); // JwtAuthenticationFilter를 addFilterBefore로 등록했던 JwtSecurityConfig class 적용
+                .apply(new JwtSecurityConfig(tokenProvider));
+                // JwtAuthenticationFilter를 addFilterBefore로 등록했던 JwtSecurityConfig class 적용
 
         return httpSecurity.build();
     }
