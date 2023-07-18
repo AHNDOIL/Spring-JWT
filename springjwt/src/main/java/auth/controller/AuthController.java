@@ -23,6 +23,11 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
     private final TokenProvider tokenProvider;
 
+    /**
+     * 로그인을 처리하는 메서드
+     * @param signInDto 로그인에 필요한 정보를 담은 SignInDto 객체
+     * @return 로그인 결과에 대한 TokenDto 객체
+     */
     @PostMapping("/sign-in")
     public ResponseEntity<TokenDto> signIn(@RequestBody SignInDto signInDto){
         TokenDto tokenDto = authService.signIn(signInDto);
@@ -30,6 +35,12 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(tokenDto);
     }
 
+
+    /**
+     * RefreshToken을 사용하여 새로운 AccessToken과 RefreshToken을 발급하는 메서드
+     * @param refreshToken 사용할 RefreshToken
+     * @return 발급된 새로운 AccessToken과 RefreshToken에 대한 TokenDto 객체
+     */
     @PostMapping("/recreate-token")
     public ResponseEntity<TokenDto> reCreateToken(@RequestHeader("Authorization") String refreshToken){
         String newAccessToken = refreshTokenService.reCreateAccessTokenByRefreshToken(refreshToken);

@@ -16,6 +16,11 @@ public class UserController {
 
     private final UserService userService;
 
+    /**
+     * 회원 가입을 처리하는 메서드
+     * @param signUpDto 회원 가입에 필요한 정보를 담은 SignUpDto 객체
+     * @return 회원 가입 결과에 대한 TokenDto 객체
+     */
     @PostMapping("/sign-up")
     public ResponseEntity<TokenDto> signUp(@RequestBody SignUpDto signUpDto){
         TokenDto tokenDto = userService.create(signUpDto);

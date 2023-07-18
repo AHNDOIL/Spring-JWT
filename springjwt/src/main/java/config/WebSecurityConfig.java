@@ -29,7 +29,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
+                // token을 사용하는 방식이기 때문에 csrf를 disable
                 .csrf().disable()
 
 
@@ -45,8 +45,8 @@ public class WebSecurityConfig {
 
                 .and()
                 .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
-                .requestMatchers("/api/signin").permitAll() // 로그인 api
-                .requestMatchers("/api/signup").permitAll() // 회원가입 api
+                .requestMatchers("/api/auth/sign-in").permitAll() // 로그인 api
+                .requestMatchers("/api/auth/sign-up").permitAll() // 회원가입 api
                 .anyRequest().authenticated() // 그 외 인증 없이 접근X
 
                 .and()
