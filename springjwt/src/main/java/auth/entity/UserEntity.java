@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class UserEntity {
 
+
     @JsonIgnore
     @Id // primary key
     @Column(name = "user_id")
@@ -40,13 +41,9 @@ public class UserEntity {
     @Column(name = "activated")
     private boolean activated;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_authority",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
-    private Set<AuthorityEntity> authorities;
 
-
-
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = Authority.class)
+    @Column(name = "authority")
+    private Set<Authority> authorities;
 }

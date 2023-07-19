@@ -3,7 +3,7 @@ package auth.service;
 
 import auth.dto.SignUpDto;
 import auth.dto.TokenDto;
-import auth.entity.AuthorityEntity;
+import auth.entity.Authority;
 import auth.entity.UserEntity;
 import auth.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -13,7 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 
 
 @Service
@@ -42,13 +43,13 @@ public class JpaUserService implements UserService{
             throw new RuntimeException("이미 존재하는 닉네임입니다.");
         }
 
-        AuthorityEntity authority = AuthorityEntity.builder()
-                .authorityName("ROLE_USER")
-                .build();
+
+        Set<Authority> authorities = EnumSet.of(Authority.ROLE_USER);
 
         UserEntity user = convertSignUpDtoToUser(signUpDto);
         UserEntity encodeUser = passwordEncryption(user);
-        encodeUser.setAuthorities(Collections.singleton(authority));
+        encodeUser.setAuthorities(authorities);
+
 
         userRepository.save(encodeUser);
 
